@@ -6,12 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\SharedKernel\HatChao.SharedKernel\HatChao.SharedKernel.csproj" />
-  </ItemGroup>
-
 </Project>
