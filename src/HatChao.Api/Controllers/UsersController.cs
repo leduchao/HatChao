@@ -17,7 +17,7 @@ public class UsersController : ControllerBase
     [HttpPost("create-user")]
     public IActionResult CreateUser(RegisterUserRequest request)
     {
-        var newUser = new User(request.Username, request.Email, request.Password);
+        var newUser = new AppUser(request.Username, request.Email, request.Password);
         return Ok(newUser);
     }
 }

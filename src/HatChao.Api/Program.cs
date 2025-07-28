@@ -1,3 +1,6 @@
+using HatChao.Modules.User.Application;
+using HatChao.Modules.User.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add Modules
+builder.Services.AddUserApplication().AddUserInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
