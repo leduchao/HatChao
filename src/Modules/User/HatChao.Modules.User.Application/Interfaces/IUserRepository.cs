@@ -5,9 +5,9 @@ namespace HatChao.Modules.User.Application.Interfaces;
 
 public interface IUserRepository : IBaseRepository<AppUser>
 {
-	Task<bool> IsUserExistsAsync(string email);
+    Task<bool> IsUserExistsAsync(string email);
 
-	Task<UserInfo?> GetUserInforAsync(string email);
+    Task<UserInfo?> GetUserInforAsync(string email);
 
-	Task<bool> IsValidPassword(string email, string hashedPassword);
+    Task<bool> IsValidPassword(string email, string hashedPassword);
 }
