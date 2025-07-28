@@ -1,6 +1,8 @@
-﻿namespace HatChao.Modules.User.Application.Interfaces;
+﻿using HatChao.Modules.User.Domain.Entities;
 
-public interface IUserRepository
+namespace HatChao.Modules.User.Application.Interfaces;
+
+public interface IUserRepository : IBaseRepository<AppUser>
 {
-
+	Task<bool> IsUserExistsAsync(string email);
 }

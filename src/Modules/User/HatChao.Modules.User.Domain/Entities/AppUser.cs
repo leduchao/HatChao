@@ -24,7 +24,7 @@ public class AppUser : BaseEntity<Guid>
 
     public IList<GroupMember> Groups { get; set; } = [];
 
-    public AppUser()
+    private AppUser()
     {
         Id = Guid.NewGuid();
     }
