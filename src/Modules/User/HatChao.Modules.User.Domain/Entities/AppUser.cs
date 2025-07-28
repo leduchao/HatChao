@@ -22,8 +22,6 @@ public class AppUser : BaseEntity<Guid>
 
     public IList<UserFriend> FriendOf { get; set; } = [];
 
-    public IList<GroupMember> Groups { get; set; } = [];
-
     private AppUser()
     {
         Id = Guid.NewGuid();

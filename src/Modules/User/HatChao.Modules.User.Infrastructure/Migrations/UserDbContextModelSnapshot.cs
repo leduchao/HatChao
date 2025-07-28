@@ -63,66 +63,6 @@ namespace HatChao.Modules.User.Infrastructure.Migrations
                     b.ToTable("AppUsers");
                 });
 
-            modelBuilder.Entity("HatChao.Modules.User.Domain.Entities.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GroupName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GroupPicture")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("HatChao.Modules.User.Domain.Entities.GroupMember", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GroupMembers");
-                });
-
             modelBuilder.Entity("HatChao.Modules.User.Domain.Entities.UserFriend", b =>
                 {
                     b.Property<Guid>("Id")
@@ -156,25 +96,6 @@ namespace HatChao.Modules.User.Infrastructure.Migrations
                     b.ToTable("UserFriends");
                 });
 
-            modelBuilder.Entity("HatChao.Modules.User.Domain.Entities.GroupMember", b =>
-                {
-                    b.HasOne("HatChao.Modules.User.Domain.Entities.Group", "Group")
-                        .WithMany("Members")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HatChao.Modules.User.Domain.Entities.AppUser", "AppUser")
-                        .WithMany("Groups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("HatChao.Modules.User.Domain.Entities.UserFriend", b =>
                 {
                     b.HasOne("HatChao.Modules.User.Domain.Entities.AppUser", "Friend")
@@ -199,13 +120,6 @@ namespace HatChao.Modules.User.Infrastructure.Migrations
                     b.Navigation("FriendOf");
 
                     b.Navigation("Friends");
-
-                    b.Navigation("Groups");
-                });
-
-            modelBuilder.Entity("HatChao.Modules.User.Domain.Entities.Group", b =>
-                {
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

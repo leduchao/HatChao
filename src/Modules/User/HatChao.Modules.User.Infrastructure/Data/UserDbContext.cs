@@ -9,10 +9,6 @@ public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(
 
     public DbSet<UserFriend> UserFriends { get; set; }
 
-    public DbSet<Group> Groups { get; set; }
-
-    public DbSet<GroupMember> GroupMembers { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

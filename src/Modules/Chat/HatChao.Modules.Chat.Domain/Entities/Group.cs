@@ -1,6 +1,6 @@
 ﻿using HatChao.SharedKernel.Domain.Abstractions;
 
-namespace HatChao.Modules.User.Domain.Entities;
+namespace HatChao.Modules.Chat.Domain.Entities;
 
 public class Group : BaseEntity<Guid>
 {

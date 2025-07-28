@@ -1,8 +1,8 @@
-﻿using HatChao.Modules.User.Domain.Commons.Enums;
+﻿using HatChao.Modules.Chat.Domain.Commons.Enums;
 using HatChao.SharedKernel.Domain.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HatChao.Modules.User.Domain.Entities;
+namespace HatChao.Modules.Chat.Domain.Entities;
 
 public class GroupMember : BaseEntity<Guid>
 {
@@ -12,9 +12,6 @@ public class GroupMember : BaseEntity<Guid>
     public Group Group { get; set; } = null!;
 
     public Guid UserId { get; set; }
-
-    [ForeignKey(nameof(UserId))]
-    public AppUser AppUser { get; set; } = null!;
 
     public GroupRole Role { get; set; }
 

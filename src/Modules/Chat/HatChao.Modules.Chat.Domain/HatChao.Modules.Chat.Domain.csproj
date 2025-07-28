@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SharedKernel\HatChao.SharedKernel\HatChao.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>
