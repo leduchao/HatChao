@@ -30,7 +30,7 @@ public class AppUser : BaseEntity<Guid>
     public AppUser(string username, string email, string plainPassword) : this()
     {
         Username = username;
-        Email = ValueObjects.Email.Create(email);
-        HashedPassword = PasswordHash.Create(plainPassword);
+        Email = ValueObjects.Email.Create(email).EmailValue;
+        HashedPassword = PasswordHash.Create(plainPassword, Email).HashedValue;
     }
 }

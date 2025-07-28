@@ -7,8 +7,6 @@ namespace HatChao.Modules.User.Domain.ValueObjects;
 
 public class PasswordHash : ValueObject
 {
-    private const string _salt = "*** a salt is used to hash password ***";
-
     public string HashedValue { get; private set; } = null!;
 
     private PasswordHash(string hashedValue)
@@ -16,7 +14,7 @@ public class PasswordHash : ValueObject
         HashedValue = hashedValue;
     }
 
-    public static string Create(string plainPassword)
+    public static PasswordHash Create(string plainPassword, string salt)
     {
         if (!RegexPatterns.PasswordRegex().IsMatch(plainPassword))
         {
@@ -25,7 +23,7 @@ public class PasswordHash : ValueObject
                 nameof(plainPassword));
         }
 
-        string saltedPassword = plainPassword + _salt;
+        string saltedPassword = plainPassword + salt;
         byte[] bytes = SHA256.HashData(Encoding.UTF8.GetBytes(saltedPassword));
 
         StringBuilder strBuilder = new();
@@ -34,7 +32,7 @@ public class PasswordHash : ValueObject
             strBuilder.Append(bytes[i].ToString("x2"));
         }
 
-        return new PasswordHash(strBuilder.ToString()).HashedValue;
+        return new PasswordHash(strBuilder.ToString());
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

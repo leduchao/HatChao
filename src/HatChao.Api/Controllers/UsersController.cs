@@ -1,5 +1,6 @@
 ﻿using HatChao.Api.DTOs;
 using HatChao.Modules.User.Application.Commands;
+using HatChao.Modules.User.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,17 @@ public class UsersController(IMediator sender) : ControllerBase
         return Ok("Get users");
     }
 
-    [HttpPost("register-user")]
+    [HttpPost("register")]
     public async Task<IActionResult> RegisterUser(RegisterUserRequest request)
     {
         var result = await _sender.Send(new RegisterUserCommand(request.Username, request.Email, request.Password));
         return result ? Ok("Register user success") : BadRequest("Register user fail");
+    }
+
+    [HttpPost("sign-in")]
+    public async Task<IActionResult> RegisterUser(SignInRequest request)
+    {
+        var result = await _sender.Send(new SignInQuery(request.Email, request.Password));
+        return result ? Ok("Sign in success") : BadRequest("Sign in fail");
     }
 }

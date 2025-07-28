@@ -14,8 +14,4 @@
     <ProjectReference Include="..\HatChao.Modules.User.Domain\HatChao.Modules.User.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
 </Project>

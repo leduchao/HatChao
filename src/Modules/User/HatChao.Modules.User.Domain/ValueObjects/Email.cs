@@ -17,7 +17,7 @@ public class Email : ValueObject
         EmailValue = email;
     }
 
-    public static string Create(string value) => new Email(value).EmailValue;
+    public static Email Create(string value) => new(value);
 
     private static bool IsValidEmail(string email) => RegexPatterns.EmailRegex().IsMatch(email);
 
