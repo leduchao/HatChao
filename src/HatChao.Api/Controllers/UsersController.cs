@@ -22,13 +22,13 @@ public class UsersController(IMediator sender) : ControllerBase
     public async Task<IActionResult> RegisterUser(RegisterUserRequest request)
     {
         var result = await _sender.Send(new RegisterUserCommand(request.Username, request.Email, request.Password));
-        return result ? Ok("Register user success") : BadRequest("Register user fail");
+        return result.Succeeded ? Ok("Register user success") : BadRequest("Register user fail");
     }
 
     [HttpPost("sign-in")]
     public async Task<IActionResult> RegisterUser(SignInRequest request)
     {
         var result = await _sender.Send(new SignInQuery(request.Email, request.Password));
-        return result ? Ok("Sign in success") : BadRequest("Sign in fail");
+        return result.Succeeded ? Ok(result) : BadRequest(result);
     }
 }

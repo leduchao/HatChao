@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\HatChao.BuildingBlocks.Application\HatChao.BuildingBlocks.Application.csproj" />
     <ProjectReference Include="..\HatChao.Modules.User.Domain\HatChao.Modules.User.Domain.csproj" />
   </ItemGroup>
 

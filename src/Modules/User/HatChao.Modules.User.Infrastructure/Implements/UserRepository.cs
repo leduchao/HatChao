@@ -14,7 +14,7 @@ public class UserRepository(UserDbContext dbContext, IDbConnection dbConnection)
     public async Task<UserInfo?> GetUserInforAsync(string email)
     {
         string sql = $"""
-            SELECT {nameof(AppUser.Username)}, {nameof(AppUser.Email)}, {nameof(AppUser.HashedPassword)} 
+            SELECT {nameof(AppUser.Username)}, {nameof(AppUser.Email)}, {nameof(AppUser.FullName)}, {nameof(AppUser.ProfilePicture)}
             FROM {nameof(UserDbContext.AppUsers)}
             WHERE {nameof(AppUser.Email)} = @Email
             """;
