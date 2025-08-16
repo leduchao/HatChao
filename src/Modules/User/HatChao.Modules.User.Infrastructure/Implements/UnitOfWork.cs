@@ -5,10 +5,10 @@ namespace HatChao.Modules.User.Infrastructure.Implements;
 
 public class UnitOfWork(UserDbContext dbContext) : IUnitOfWork
 {
-	private readonly UserDbContext _dbContext = dbContext;
+    private readonly UserDbContext _dbContext = dbContext;
 
-	public async Task<int> SaveChangesAsync()
-	{
-		return await _dbContext.SaveChangesAsync();
-	}
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        return await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 }
