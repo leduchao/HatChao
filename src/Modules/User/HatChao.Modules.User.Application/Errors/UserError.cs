@@ -2,7 +2,7 @@
 
 namespace HatChao.Modules.User.Application.Errors;
 
-public static class AuthError
+public static class UserError
 {
     public static readonly Error UserNotFound = new("UserNotFound", "User not found");
     public static readonly Error PasswordIncorrect = new("PasswordIncorrect", "Password is incorrect");

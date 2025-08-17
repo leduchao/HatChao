@@ -11,7 +11,7 @@ public class UserRepository(UserDbContext dbContext, IDbConnection dbConnection)
 {
     private readonly IDbConnection _dbConnection = dbConnection;
 
-    public async Task<UserInfo?> GetUserInforAsync(string email)
+    public async Task<UserBasicInfo?> GetUserInforAsync(string email)
     {
         string sql = $"""
             SELECT {nameof(AppUser.Username)}, {nameof(AppUser.Email)}, {nameof(AppUser.FullName)}, {nameof(AppUser.ProfilePicture)}
@@ -19,7 +19,7 @@ public class UserRepository(UserDbContext dbContext, IDbConnection dbConnection)
             WHERE {nameof(AppUser.Email)} = @Email
             """;
 
-        var result = await _dbConnection.QueryFirstOrDefaultAsync<UserInfo>(sql, new { Email = email });
+        var result = await _dbConnection.QueryFirstOrDefaultAsync<UserBasicInfo>(sql, new { Email = email });
 
         return result;
     }

@@ -7,7 +7,7 @@ public interface IUserRepository : IBaseRepository<AppUser>
 {
     Task<bool> IsUserExistsAsync(string email);
 
-    Task<UserInfo?> GetUserInforAsync(string email);
+    Task<UserBasicInfo?> GetUserInforAsync(string email);
 
     Task<bool> IsValidPassword(string email, string hashedPassword);
 }

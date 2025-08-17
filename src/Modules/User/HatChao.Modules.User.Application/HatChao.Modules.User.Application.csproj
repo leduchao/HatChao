@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\GetBasicInfo\" />
     <Folder Include="Features\GetDetailInfo\" />
     <Folder Include="Features\UpdateProfile\" />
   </ItemGroup>

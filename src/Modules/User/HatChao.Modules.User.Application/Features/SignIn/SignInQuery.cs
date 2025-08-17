@@ -8,9 +8,9 @@ using MediatR;
 
 namespace HatChao.Modules.User.Application.Features.SignIn;
 
-public record SignInQuery(string Email, string Password) : IRequest<Result<UserInfo>>;
+public record SignInQuery(string Email, string Password) : IRequest<Result<UserBasicInfo>>;
 
-public class SignInQueryHandler : IRequestHandler<SignInQuery, Result<UserInfo>>
+public class SignInQueryHandler : IRequestHandler<SignInQuery, Result<UserBasicInfo>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IValidator<SignInQuery> _validator;
@@ -21,22 +21,22 @@ public class SignInQueryHandler : IRequestHandler<SignInQuery, Result<UserInfo>>
         _validator = validator;
     }
 
-    public async Task<Result<UserInfo>> Handle(SignInQuery request, CancellationToken cancellationToken)
+    public async Task<Result<UserBasicInfo>> Handle(SignInQuery request, CancellationToken cancellationToken)
     {
         var validationResult = _validator.Validate(request);
         if (!validationResult.IsValid)
         {
-            return Result<UserInfo>.Failure(new Error("SignInUser", validationResult.ToString()));
+            return Result<UserBasicInfo>.Failure(new Error("SignInUserValidation", validationResult.ToString()));
         }
 
         if (!await _userRepository.IsUserExistsAsync(request.Email))
-            return Result<UserInfo>.Failure(AuthError.UserNotFound);
+            return Result<UserBasicInfo>.Failure(UserError.UserNotFound);
 
         var passwordHash = PasswordHash.Create(request.Password, request.Email);
         if (!await _userRepository.IsValidPassword(request.Email, passwordHash.HashedValue))
-            return Result<UserInfo>.Failure(AuthError.PasswordIncorrect);
+            return Result<UserBasicInfo>.Failure(UserError.PasswordIncorrect);
 
         var userInfo = await _userRepository.GetUserInforAsync(request.Email);
-        return Result<UserInfo>.Success(userInfo);
+        return Result<UserBasicInfo>.Success(userInfo);
     }
 }

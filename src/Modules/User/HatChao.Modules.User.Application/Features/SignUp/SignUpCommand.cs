@@ -31,7 +31,7 @@ public class SingUpCommandHandler : IRequestHandler<SignUpCommand, Result>
         }
 
         if (await _userRepo.IsUserExistsAsync(request.Email))
-            return Result.Failure(AuthError.EmailExists);
+            return Result.Failure(UserError.EmailExists);
 
         var newUser = new AppUser(request.Username, request.Email, request.Password);
         _userRepo.Add(newUser);
