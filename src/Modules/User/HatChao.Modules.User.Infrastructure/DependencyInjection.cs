@@ -1,10 +1,14 @@
 ﻿using HatChao.Modules.User.Application.Interfaces;
+using HatChao.Modules.User.Application.Interfaces.Services;
 using HatChao.Modules.User.Infrastructure.Data;
 using HatChao.Modules.User.Infrastructure.Implements;
+using HatChao.Modules.User.Infrastructure.Implements.Services;
+
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System.Data;
 
 namespace HatChao.Modules.User.Infrastructure;
@@ -15,6 +19,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<UserDbContext>(options => options.UseSqlServer(config.GetConnectionString("SqlServer")));
         services.AddScoped<IDbConnection>(p => new SqlConnection(config.GetConnectionString("SqlServer")));
+        services.AddScoped<IJwtService, JwtService>();
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();

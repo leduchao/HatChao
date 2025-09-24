@@ -4,6 +4,7 @@ using HatChao.BuildingBlocks.Application.Response;
 using HatChao.Modules.User.Application.DTOs;
 using HatChao.Modules.User.Application.Errors;
 using HatChao.Modules.User.Application.Interfaces;
+using HatChao.Modules.User.Application.Interfaces.Services;
 using HatChao.Modules.User.Domain.ValueObjects;
 
 using MediatR;
@@ -15,12 +16,14 @@ public record SignInQuery(string Email, string Password) : IRequest<Result<UserB
 public class SignInQueryHandler : IRequestHandler<SignInQuery, Result<UserBasicInfo>>
 {
     private readonly IUserRepository _userRepository;
+    private readonly IJwtService _jwtService;
     private readonly IValidator<SignInQuery> _validator;
 
-    public SignInQueryHandler(IUserRepository userRepository, IValidator<SignInQuery> validator)
+    public SignInQueryHandler(IUserRepository userRepository, IValidator<SignInQuery> validator, IJwtService jwtService)
     {
         _userRepository = userRepository;
         _validator = validator;
+        _jwtService = jwtService;
     }
 
     public async Task<Result<UserBasicInfo>> Handle(SignInQuery request, CancellationToken cancellationToken)
@@ -44,6 +47,7 @@ public class SignInQueryHandler : IRequestHandler<SignInQuery, Result<UserBasicI
         }
 
         var userInfo = await _userRepository.GetUserInforAsync(request.Email);
+        var accessToken = userInfo is null ? string.Empty : _jwtService.GenerateAccessToken(userInfo.Id, userInfo.Username);
         return Result<UserBasicInfo>.Success(userInfo);
     }
 }

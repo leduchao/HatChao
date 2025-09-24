@@ -1,7 +1,10 @@
 ﻿using FluentValidation;
+
 using HatChao.BuildingBlocks.Application.Response;
 using HatChao.Modules.User.Application.DTOs;
+using HatChao.Modules.User.Application.Errors;
 using HatChao.Modules.User.Application.Interfaces;
+
 using MediatR;
 
 namespace HatChao.Modules.User.Application.Features.GetBasicInfo;
@@ -24,10 +27,13 @@ public class GetBasicInfoQueryHandler : IRequestHandler<GetBasicInfoQuery, Resul
         var validationResult = _validator.Validate(request);
         if (!validationResult.IsValid)
         {
-            return Result<UserBasicInfo>.Failure(new Error("GetUserBasicInfoValidation", validationResult.ToString()));
+            var error = new Error("GetUserBasicInfoValidation", validationResult.ToString());
+            return Result<UserBasicInfo>.Failure(error, ErrorType.BadRequest);
         }
 
         var userInfo = await _userRepo.GetUserInforAsync(request.Email);
-        return Result<UserBasicInfo>.Success(userInfo);
+        return userInfo is null
+            ? Result<UserBasicInfo>.Failure(UserError.UserNotFound, ErrorType.NotFound)
+            : Result<UserBasicInfo>.Success(userInfo);
     }
 }
