@@ -27,13 +27,17 @@ public class SingUpCommandHandler : IRequestHandler<SignUpCommand, Result>
         var validationResult = _validator.Validate(request);
         if (!validationResult.IsValid)
         {
-            return Result.Failure(new Error("SignUpUserValidation", validationResult.ToString()));
+            var error = new Error("SignUpUserValidation", validationResult.ToString());
+            return Result.Failure(error, ErrorType.BadRequest);
         }
 
         if (await _userRepo.IsUserExistsAsync(request.Email))
-            return Result.Failure(UserError.EmailExists);
+        {
+            return Result.Failure(UserError.EmailExists, ErrorType.BadRequest);
+        }
 
         var newUser = new AppUser(request.Username, request.Email, request.Password);
+
         _userRepo.Add(newUser);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
