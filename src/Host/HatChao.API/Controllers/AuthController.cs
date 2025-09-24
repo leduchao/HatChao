@@ -1,8 +1,4 @@
-﻿using System.Reflection;
-
-using Azure.Core;
-
-using HatChao.API.DTOs;
+﻿using HatChao.API.DTOs;
 using HatChao.Modules.User.Application.Features.SignIn;
 using HatChao.Modules.User.Application.Features.SignUp;
 
